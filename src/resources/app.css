@@ -1,0 +1,21 @@
+VBox {
+	-fx-alignment: center
+}
+
+Label {
+	-fx-label-padding: 2
+}
+
+Button {
+	-fx-label-padding: 2
+}
+
+.tooltip {
+  -fx-background-color: white;
+  -fx-text-fill: black;
+  -fx-background-radius: 5.0;
+}
+
+.page-corner {
+  -fx-shape: " ";
+}

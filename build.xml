@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="sample_gui" basedir="." default="build">
+	<property name="srcLocation" location="src/resources"></property>
+	<property name="trgLocation" location="java"></property>
+	<target name="clean"></target>
+	<target name="build">
+		<uptodate property="MainControllerUpToDate" srcfile="${srcLocation}/app.fxml"
+			targetfile="${trgLocation}/MainController.java"/>
+		<antcall target="MainController"/>
+		<uptodate property="PopupControllerUpToDate" srcfile="${srcLocation}/popup.fxml"
+			targetfile="${trgLocation}/PopupController.java"/>
+		<antcall target="PopupController"/>
+	</target>
+	<target name="MainController" unless="MainControllerUpToDate">
+		<exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="D:/JARS/jfx_generator.bat"/>
+            <arg value="-in"/>
+			<arg value="${srcLocation}/app.fxml"/>
+            <arg value="-out"/>
+			<arg value="${trgLocation}/MainController.java"/>
+		</exec>
+		<javac srcdir="java" destdir ="target"
+			debug="true" debuglevel="lines,vars,source" />
+	</target>
+	<target name="PopupController" unless="PopupControllerUpToDate">
+		<exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="D:/JARS/jfx_generator.bat"/>
+            <arg value="-in"/>
+			<arg value="${srcLocation}/popup.fxml"/>
+            <arg value="-out"/>
+			<arg value="${trgLocation}/PopupController.java"/>
+		</exec>
+		<javac srcdir="java" destdir ="target"
+			debug="true" debuglevel="lines,vars,source" />
+	</target>
+	
+</project>
+<!--comment-->

@@ -29,6 +29,7 @@
 (def app (atom nil))
 (def app-root (atom nil))
 (def popup-root (atom nil))
+(def popup-stage (atom nil))
 
 (def app-data {:config-fn config
                :title "Sample GUI"
@@ -54,16 +55,20 @@
 
 (defn popup [cfg data]
   (wr/set-app-data @app (assoc data :config-fn cfg))
-  (Platform/runLater #(wr/start-stage)))
+  (Platform/runLater #(let [stage (wr/start-stage)]
+                        (reset! popup-stage stage))))
 
 (defn app-button-cb [_]
   (popup config-popup popup-data))
 
 (defn close-popup [stage]
-  (.close stage))
+  (.close @popup-stage)
+  (reset! popup-stage nil))
 
-(defn popup-button-cb [_ stage]
-  (close-popup stage))
+(defn popup-button-cb [_]
+  (when @popup-stage 
+    (close-popup @popup-stage)
+    (reset! popup-stage nil)))
 
 (defn config [root mc]
   (reset! app-root root)
@@ -76,7 +81,7 @@
   (reset! popup-root root)
   (.initModality root Modality/WINDOW_MODAL)
   (let [button (.-button mc)
-        button-cb (wr/event-handler popup-button-cb root)]
+        button-cb (wr/event-handler popup-button-cb)]
     (.setOnAction button button-cb)))
 
 (defn -main [& _]

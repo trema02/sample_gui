@@ -31,27 +31,29 @@
 (def popup-root (atom nil))
 (def popup-stage (atom nil))
 
-(def app-data {:config-fn config
-               :title "Sample GUI"
-               :mk-root-fn nil
-               :css-name "/resources/app.css"
-               :x-size 100
-               :y-size 100
-               :image-name "/resources/app.png"
-               :fxml-name "/resources/app.fxml"
-               :end-fn nil
-               :debug true})
+(defn app-data []
+  {:config-fn config
+   :title "Sample GUI"
+   :mk-root-fn nil
+   :css-name "/resources/app.css"
+   :x-size 100
+   :y-size 100
+   :image-name "/resources/app.png"
+   :fxml-name "/resources/app.fxml"
+   :end-fn nil
+   :debug true})
 
-(def popup-data {:config-fn config-popup
-               :title "Sample popup"
-               :mk-root-fn nil
-               :css-name "/resources/app.css"
-               :x-size 100
-               :y-size 100
-               :image-name "/resources/app.png"
-               :fxml-name "/resources/popup.fxml"
-               :end-fn (wr/event-handler close-popup)
-               :debug false})
+(defn popup-data []
+  {:config-fn config-popup
+   :title "Sample popup"
+   :mk-root-fn nil
+   :css-name "/resources/app.css"
+   :x-size 100
+   :y-size 100
+   :image-name "/resources/app.png"
+   :fxml-name "/resources/popup.fxml"
+   :end-fn (wr/event-handler close-popup)
+   :debug false})
 
 (defn popup [cfg data]
   (wr/set-app-data @app (assoc data :config-fn cfg))
@@ -59,7 +61,7 @@
                         (reset! popup-stage stage))))
 
 (defn app-button-cb [_]
-  (popup config-popup popup-data))
+  (popup config-popup (popup-data)))
 
 (defn close-popup [stage]
   (.close @popup-stage)
@@ -85,6 +87,9 @@
     (.setOnAction button button-cb)))
 
 (defn -main [& _]
-  (wr/setup (assoc app-data :config-fn config)))
+  (wr/setup (app-data)))
 
-;(-main)
+(comment
+  (-main)
+  ;
+  )

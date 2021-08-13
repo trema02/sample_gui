@@ -1,6 +1,6 @@
 (ns sample-gui.core-test
-  (:require [clojure.test :refer :all]
-            [de.trema02.sample-gui.core :refer :all]))
+  (:require [clojure.test :refer [deftest testing is]]
+            [de.trema02.sample-gui.core :as gui]))
 
 (deftest a-test
   (testing "FIXME, I fail."

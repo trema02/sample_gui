@@ -86,6 +86,7 @@
         button-cb (wr/event-handler popup-button-cb)]
     (.setOnAction button button-cb)))
 
+
 (defn -main [& _]
   (wr/setup (app-data)))
 

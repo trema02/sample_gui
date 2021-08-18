@@ -56,7 +56,7 @@
    :debug false})
 
 (defn popup [cfg data]
-  (wr/set-app-data @app (assoc data :config-fn cfg))
+  (wr/set-app-data @app data)
   (Platform/runLater #(let [stage (wr/start-stage)]
                         (reset! popup-stage stage))))
 
